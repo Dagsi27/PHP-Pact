@@ -1,0 +1,1 @@
+curl  -X POST         -H "X-Pact-Mock-Service: true"         -H "Content-Type: application/json" -d '{"consumer" : {"name": "Consumer Name"}, "provider": {"name": "Provider Name"}}'         http://host.docker.internal:7201/pact

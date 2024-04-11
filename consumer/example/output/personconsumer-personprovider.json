@@ -1,0 +1,33 @@
+{
+  "consumer": {
+    "name": "personConsumer"
+  },
+  "provider": {
+    "name": "personProvider"
+  },
+  "interactions": [
+    {
+      "description": "GET person for id: 3",
+      "providerState": "Person Dade Murphy (Zero Cool) exists",
+      "request": {
+        "method": "GET",
+        "path": "/person/3"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "first_name": "Dade",
+          "last_name": "Murphy",
+          "alias": "Zero Cool"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
