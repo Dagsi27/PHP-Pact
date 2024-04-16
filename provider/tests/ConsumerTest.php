@@ -2,10 +2,12 @@
 
 namespace Tests;
 
+use App\Models\Person;
 use GuzzleHttp\Psr7\Uri;
+use Mockery;
 use PhpPact\Standalone\ProviderVerifier\Model\VerifierConfig;
 use PhpPact\Standalone\ProviderVerifier\Verifier;
-use PHPUnit\Framework\TestCase;
+
 
 class ConsumerTest extends TestCase
 {

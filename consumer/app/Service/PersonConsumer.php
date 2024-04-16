@@ -15,6 +15,23 @@ class PersonConsumer
         $this->client = $client;
     }
 
+    public function allPerson(): array
+    {
+        $response = $this->client->get(
+            "/person"
+        );
+
+        $body = json_decode($response->getBody()->getContents(), true);
+
+        return [
+            new Person(
+                $body[0]["first_name"],
+                $body[0]["last_name"],
+                $body[0]["alias"]
+            )
+        ];
+    }
+
     public function getPersonById(string $id) : Person
     {
         $response = $this->client->get(

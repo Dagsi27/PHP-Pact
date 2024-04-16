@@ -22,10 +22,26 @@ $router->get('/', function () use ($router) {
 $router->get('/person/{id}', function ($id) use ($router) {
 
     $result = [
-        "first_name" => "Dade",
-        "last_name" => "Murphy",
-        "alias" => "Zero Cool",
+        "first_name" => "Daniel",
+        "last_name" => "Śliżewski",
+        "alias" => "test",
     ];
 
     return (new Response($result));
 });
+
+$router->get('person', 'PersonController@get');
+
+/*
+$router->get('/person', function () use ($router) {
+    $result = \App\Models\Person::get();
+
+    return (new Response([
+        [
+            "first_name" => $result[0]->name,
+            "last_name" => $result[0]->lastName,
+            "alias" => $result[0]->alias,
+        ]
+    ]));
+});
+*/

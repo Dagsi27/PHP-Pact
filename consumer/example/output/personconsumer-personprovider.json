@@ -7,21 +7,41 @@
   },
   "interactions": [
     {
-      "description": "GET person for id: 3",
+      "description": "GET person for id: 1",
       "providerState": "Person Dade Murphy (Zero Cool) exists",
       "request": {
         "method": "GET",
-        "path": "/person/3"
+        "path": "/person/1"
       },
       "response": {
         "status": 200,
         "headers": {
         },
         "body": {
-          "first_name": "Dade",
-          "last_name": "Murphy",
-          "alias": "Zero Cool"
+          "first_name": "Daniel",
+          "last_name": "Śliżewski",
+          "alias": "test"
         }
+      }
+    },
+    {
+      "description": "Fetch persona",
+      "providerState": "Person but first should be Daniel",
+      "request": {
+        "method": "GET",
+        "path": "/person"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": [
+          {
+            "first_name": "Daniel",
+            "last_name": "Śliżewski",
+            "alias": "test"
+          }
+        ]
       }
     }
   ],

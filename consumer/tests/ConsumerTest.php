@@ -8,8 +8,6 @@ use PhpPact\Consumer\InteractionBuilder;
 use PhpPact\Consumer\Model\ConsumerRequest;
 use PhpPact\Consumer\Model\ProviderResponse;
 use PhpPact\Standalone\Exception\MissingEnvVariableException;
-use PhpPact\Standalone\MockService\MockServer;
-use PhpPact\Standalone\MockService\MockServerConfig;
 use PhpPact\Standalone\MockService\MockServerEnvConfig;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\TestRunner\TestResult\TestResult;
@@ -21,10 +19,10 @@ class ConsumerTest extends TestCase
      */
     public function testGetPersonById()
     {
-        $id = "3";
-        $firstName = "Dade";
-        $lastName = "Murphy";
-        $alias = "Zero Cool";
+        $id = "1";
+        $firstName = "Daniel";
+        $lastName = "Śliżewski";
+        $alias = "test";
 
         $request = new ConsumerRequest();
         $request->setMethod("GET")
@@ -48,9 +46,7 @@ class ConsumerTest extends TestCase
             ->with($request)
             ->willRespondWith($response);
 
-
         $client = new Client(["base_uri" => $config->getBaseUri()]);
-
         $consumer = new PersonConsumer($client);
 
         $person = $consumer->getPersonById($id);
@@ -59,7 +55,43 @@ class ConsumerTest extends TestCase
         $this->assertEquals($firstName, $person->getFirstName());
         $this->assertEquals($lastName, $person->getLastName());
         $this->assertEquals($alias, $person->getAlias());
-
     }
 
+    public function testFetchPersons()
+    {
+        $firstName = "Daniel";
+        $lastName = "Śliżewski";
+        $alias = "test";
+
+        $request = new ConsumerRequest();
+        $request->setMethod("GET")
+            ->setPath("/person");
+
+        $response = new ProviderResponse();
+        $response->setStatus(200)
+            ->setBody([
+                [
+                    "first_name" => $firstName,
+                    "last_name" => $lastName,
+                    "alias" => $alias,
+                ]
+            ]);
+
+        $config = new MockServerEnvConfig();
+
+        $builder = new InteractionBuilder($config);
+        $builder->given("Person but first should be Daniel")
+            ->uponReceiving("Fetch persona")
+            ->with($request)
+            ->willRespondWith($response);
+
+
+        $client = new Client(["base_uri" => $config->getBaseUri()]);
+
+        $consumer = new PersonConsumer($client);
+
+        $person = $consumer->allPerson();
+
+        $this->assertTrue($builder->verify());
+    }
 }
